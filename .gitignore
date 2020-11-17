@@ -139,3 +139,7 @@ cython_debug/
 
 # 2to3 backups of original source code
 .py.bak
+
+# sagpr output
+.npy
+.txt

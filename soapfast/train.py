@@ -52,7 +52,7 @@ def main():
     
             # If we wanted to do the predictions, then put together the predicted spherical tensors
             if (prediction):
-                ns = len(outvec[0])/degen[0]
+                ns = int( len(outvec[0])//degen[0] )
                 predcart  = regression_utils.convert_spherical_to_cartesian(outvec,degen,ns,CR,CS,keep_cols,keep_list,lin_dep_list,sym_list)
                 testcart  = regression_utils.convert_spherical_to_cartesian(tstvec,degen,ns,CR,CS,keep_cols,keep_list,lin_dep_list,sym_list)
     

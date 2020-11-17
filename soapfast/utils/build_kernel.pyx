@@ -160,6 +160,6 @@ def calc_nonlinear_tensor_kernel(lam,npoints,scale,featsize,featsize0,zeta,PS,PS
         int_hermiticity = 1
     else:
         int_hermiticity = 0
-    kreal = np.zeros((npoints[0],npoints[1],2*lam+1,2*lam+1),dtype=float)
+    kreal = np.zeros((npoints[0],npoints[1],int(2*lam+1),int(2*lam+1)),dtype=float)
     _nonlineartensorkernelf(lam,npoints[0],npoints[1],scale[0],scale[1],featsize,featsize0,zeta,PS[0],PS[1],PS0[0],PS0[1],int_hermiticity,kreal)
     return kreal 

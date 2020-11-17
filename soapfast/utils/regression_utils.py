@@ -157,16 +157,17 @@ def complex_to_real_transformation(sizes):
 
     matrices = []
     for i in range(len(sizes)):
-        lval = (sizes[i]-1)/2
+        lval = int( (sizes[i]-1)//2 )
         st = (-1.0)**(lval+1)
         transformation_matrix = np.zeros((sizes[i],sizes[i]),dtype=complex)
-        for j in range( (sizes[i]-1)/2 ):
+        for j in range( lval ):
+            m = int(sizes[i] - j - 1)
             transformation_matrix[j][j] = 1.0j
-            transformation_matrix[j][sizes[i]-j-1] = st*1.0j
-            transformation_matrix[sizes[i]-j-1][j] = 1.0
-            transformation_matrix[sizes[i]-j-1][sizes[i]-j-1] = st*-1.0
+            transformation_matrix[j][m] = st*1.0j
+            transformation_matrix[m][j] = 1.0
+            transformation_matrix[m][m] = st*-1.0
             st = st * -1.0
-        transformation_matrix[(sizes[i]-1)/2][(sizes[i]-1)/2] = np.sqrt(2.0)
+        transformation_matrix[lval][lval] = np.sqrt(2.0)
         transformation_matrix /= np.sqrt(2.0)
         matrices.append(transformation_matrix)
 
@@ -213,8 +214,8 @@ def convert_spherical_to_cartesian(outvec,degen,size,CR,CS,keep_cols,keep_list,l
         full_outvec[lin_dep_list[i][1]] = full_outvec[lin_dep_list[i][0]] * lin_dep_list[i][2]
 
     # Now concatenate these outputs to give one array
-    concat_vec = np.zeros((len(outvec[0])/degen[0],sum(full_degen)),dtype=complex)
-    for i in range(len(outvec[0])/degen[0]):
+    concat_vec = np.zeros((int( len(outvec[0])//degen[0] ),sum(full_degen)),dtype=complex)
+    for i in range(int( len(outvec[0])//degen[0] )):
         full_outvecs = []
         for j in range(len(full_degen)):
             if (full_degen[j]==1):
